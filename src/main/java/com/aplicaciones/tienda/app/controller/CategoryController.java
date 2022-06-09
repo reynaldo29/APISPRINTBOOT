@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,16 +21,20 @@ import com.aplicaciones.tienda.app.service.CategoryService;
 @RequestMapping("/api/categories")
 public class CategoryController {
 	//INYECCIÓN DE DEPENDENCIAS
+	
 	@Autowired
 	private CategoryService categoryService;
 	
+	
 	//CREATE A NEW CATEGORY
+	@CrossOrigin(origins="http://localhost:3000")
 	@PostMapping
 	public ResponseEntity<?> create(@RequestBody Category category){
 		return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category));
 	}
 	
 	//READ ALL CATEGORIES
+	@CrossOrigin(origins="http://localhost:3000")
 	@GetMapping
 	public List<Category> readAll(){
 		List<Category> categories = StreamSupport

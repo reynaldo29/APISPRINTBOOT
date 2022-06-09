@@ -2,6 +2,7 @@ package com.aplicaciones.tienda.app.entity;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,149 +12,156 @@ import javax.persistence.Table;
 @Entity
 @Table(name="products")
 public class Product{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	private String nombre;
-	
-	private Long categoria_id;
-	private Long pais_id;
-	
-	
-	private double precio;
-	private int stock;
-	
-	private String marca;
-	
-	private String talla;
-	
-	private String genero;
-	
-	private String img_delante;
-	
-	private String img_atras;
-	
-	private String img_costado;
-	
-	private String descripcion;
-	
-	private Date pub_date;
 
-	
-	
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nombre;
+    @Column(name="categoria_id")
+    private int categoriaId;
+    @Column(name="pais_id")
+    private int paisId;
 
-	public Long getId() {
-		return id;
-	}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private double precio;
+    private int stock;
 
-	public String getNombre() {
-		return nombre;
-	}
+    private String marca;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    private String talla;
 
-	public double getPrecio() {
-		return precio;
-	}
+    private String genero;
 
-	public void setPrecio(double precio) {
-		this.precio = precio;
-	}
+    private String img_delante;
 
-	public int getStock() {
-		return stock;
-	}
+    private String img_atras;
 
-	public void setStock(int stock) {
-		this.stock = stock;
-	}
+    private int cantidad;
 
-	public String getMarca() {
-		return marca;
-	}
+    private String descripcion;
 
-	public void setMarca(String marca) {
-		this.marca = marca;
-	}
+    private Date pub_date;
 
-	public String getTalla() {
-		return talla;
-	}
 
-	public void setTalla(String talla) {
-		this.talla = talla;
-	}
 
-	public String getGenero() {
-		return genero;
-	}
 
-	public void setGenero(String genero) {
-		this.genero = genero;
-	}
 
-	public String getImg_delante() {
-		return img_delante;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setImg_delante(String img_delante) {
-		this.img_delante = img_delante;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getImg_atras() {
-		return img_atras;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setImg_atras(String img_atras) {
-		this.img_atras = img_atras;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public String getImg_costado() {
-		return img_costado;
-	}
+    public double getPrecio() {
+        return precio;
+    }
 
-	public void setImg_costado(String img_costado) {
-		this.img_costado = img_costado;
-	}
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public int getStock() {
+        return stock;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
 
-	public Date getPub_date() {
-		return pub_date;
-	}
+    public String getMarca() {
+        return marca;
+    }
 
-	public void setPub_date(Date pub_date) {
-		this.pub_date = pub_date;
-	}
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
 
-	public Long getCategoria_id() {
-		return categoria_id;
-	}
+    public String getTalla() {
+        return talla;
+    }
 
-	public void setCategoria_id(Long categoria_id) {
-		this.categoria_id = categoria_id;
-	}
+    public void setTalla(String talla) {
+        this.talla = talla;
+    }
 
-	public Long getPais_id() {
-		return pais_id;
-	}
+    public String getGenero() {
+        return genero;
+    }
 
-	public void setPais_id(Long pais_id) {
-		this.pais_id = pais_id;
-	}
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getImg_delante() {
+        return img_delante;
+    }
+
+    public void setImg_delante(String img_delante) {
+        this.img_delante = img_delante;
+    }
+
+    public String getImg_atras() {
+        return img_atras;
+    }
+
+    public void setImg_atras(String img_atras) {
+        this.img_atras = img_atras;
+    }
+
+
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Date getPub_date() {
+        return pub_date;
+    }
+
+    public void setPub_date(Date pub_date) {
+        this.pub_date = pub_date;
+    }
+
+
+
+    public int getCategoriaId() {
+        return categoriaId;
+    }
+
+    public void setCategoriaId(int categoriaId) {
+        this.categoriaId = categoriaId;
+    }
+
+    public int getPaisId() {
+        return paisId;
+    }
+
+    public void setPaisId(int paisId) {
+        this.paisId = paisId;
+    }
+
+
 
 }

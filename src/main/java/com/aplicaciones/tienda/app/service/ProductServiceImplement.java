@@ -1,5 +1,6 @@
 package com.aplicaciones.tienda.app.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,5 +52,18 @@ public class ProductServiceImplement implements ProductService{
 		productRepository.deleteById(id);
 		
 	}
+	//BUSCAR POR CATEGORIA
+
+    @Override
+    public List<Product> findByCategoriaId(int categoriaId) {
+
+        return productRepository.findByCategoriaId(categoriaId);
+    }
+    //BUSCAR POR PAIS
+    @Override
+    public List<Product> findByPaisId(int paisId) {
+
+        return productRepository.findByPaisId(paisId);
+    }
 
 }

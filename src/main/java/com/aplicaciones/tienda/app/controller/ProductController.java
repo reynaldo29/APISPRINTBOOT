@@ -24,71 +24,91 @@ import com.aplicaciones.tienda.app.service.ProductService;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-	//INYECCIÓN DE DEPENDENCIAS
-	@Autowired
-	private ProductService productService;
-	
-	//CREATE A NEW PRODUCT
-	@PostMapping
-	public ResponseEntity<?> create(@RequestBody Product product){
-		return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
-	}
-	
-	//READ A PRODUCT
-	@GetMapping("/{id}")
-	public ResponseEntity<?> read(@PathVariable(value="id") Long productId){
-		Optional<Product> oProduct = productService.findById(productId);
-		
-		if(!oProduct.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		return ResponseEntity.ok(oProduct);
-	}
-	
-	//UPDATE AN PRODUCT
-	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@RequestBody Product productDetail, @PathVariable(value="id") Long productId){
-		Optional<Product> product = productService.findById(productId);
-		
-		if(!product.isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		//BeanUtils.copyProperties(productDetail, product.get());
-		product.get().setNombre(productDetail.getNombre());
-		product.get().setCategoria_id(productDetail.getCategoria_id());
-		product.get().setPais_id(productDetail.getPais_id());
-		product.get().setPrecio(productDetail.getPrecio());
-		product.get().setStock(productDetail.getStock());
-		product.get().setMarca(productDetail.getMarca());
-		product.get().setTalla(productDetail.getTalla());
-		product.get().setGenero(productDetail.getGenero());
-		product.get().setImg_delante(productDetail.getImg_delante());
-		product.get().setImg_atras(productDetail.getImg_atras());
-		product.get().setImg_costado(productDetail.getImg_costado());
-		product.get().setDescripcion(productDetail.getDescripcion());
-		product.get().setPub_date(productDetail.getPub_date());
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product.get()));
-	}
-	
-	//DELETE PRODUCT
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete (@PathVariable(value="id") Long productId){
-		if(!productService.findById(productId).isPresent()) {
-			return ResponseEntity.notFound().build();
-		}
-		
-		productService.deleteById(productId);
-		return ResponseEntity.ok().build();
-	}
-	
-	//READ ALL PRODUCTS
-	@GetMapping
-	public List<Product> readAll(){
-		List<Product> products = StreamSupport
-				.stream(productService.findAll().spliterator(), false)
-				.collect(Collectors.toList());
-		
-		return products;
-	}
+    //INYECCIÓN DE DEPENDENCIAS
+    @Autowired
+    private ProductService productService;
+
+    //CREATE A NEW PRODUCT
+    @PostMapping
+    public ResponseEntity<?> create(@RequestBody Product product){
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
+    }
+
+    //READ A PRODUCT
+    @GetMapping("/{id}")
+    public ResponseEntity<?> read(@PathVariable(value="id") Long productId){
+        Optional<Product> oProduct = productService.findById(productId);
+
+        if(!oProduct.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(oProduct);
+    }
+    //READ BY CATEGORY
+    @GetMapping("/categoria/{categoriaid}")
+    public ResponseEntity<?> readbycategory(@PathVariable(value="categoriaid") int categoriaP){
+        List<Product> catProd = productService.findByCategoriaId(categoriaP);
+
+        if(catProd.size()==0) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(catProd);
+    }
+    //READ BY PAIS
+    @GetMapping("/pais/{paisid}")
+    public ResponseEntity<?> readbycountry(@PathVariable(value="paisid") int paisP){
+        List<Product> paisProd= productService.findByPaisId(paisP);
+
+        if(paisProd.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(paisProd);
+    }
+
+    //UPDATE AN PRODUCT
+    @PutMapping("/{id}")
+    public ResponseEntity<?> update(@RequestBody Product productDetail, @PathVariable(value="id") Long productId){
+        Optional<Product> product = productService.findById(productId);
+
+        if(!product.isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+        //BeanUtils.copyProperties(productDetail, product.get());
+        product.get().setNombre(productDetail.getNombre());
+        product.get().setCategoriaId(productDetail.getCategoriaId());
+        product.get().setPaisId(productDetail.getPaisId());
+        product.get().setPrecio(productDetail.getPrecio());
+        product.get().setStock(productDetail.getStock());
+        product.get().setMarca(productDetail.getMarca());
+        product.get().setTalla(productDetail.getTalla());
+        product.get().setGenero(productDetail.getGenero());
+        product.get().setImg_delante(productDetail.getImg_delante());
+        product.get().setImg_atras(productDetail.getImg_atras());
+        product.get().setCantidad(productDetail.getCantidad());
+        product.get().setDescripcion(productDetail.getDescripcion());
+        product.get().setPub_date(productDetail.getPub_date());
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product.get()));
+    }
+
+    //DELETE PRODUCT
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete (@PathVariable(value="id") Long productId){
+        if(!productService.findById(productId).isPresent()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        productService.deleteById(productId);
+        return ResponseEntity.ok().build();
+    }
+
+    //READ ALL PRODUCTS
+    @GetMapping
+    public List<Product> readAll(){
+        List<Product> products = StreamSupport
+                .stream(productService.findAll().spliterator(), false)
+                .collect(Collectors.toList());
+
+        return products;
+    }
 }
